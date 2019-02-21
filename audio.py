@@ -28,17 +28,9 @@ class audio:
         # print(self.sounds[note].play(1,1))
     def stopPlaying(self, note):
         if note in self.currentlyPlaying:
-            self.currentlyPlaying.remove(note)
             self.sounds[note].stop()
-
-myAudio = audio()
-time.sleep(1)
-myAudio.startPlaying('C')
-myAudio.startPlaying('F')
-myAudio.startPlaying('A')
-
-time.sleep(4)
-myAudio.stopPlaying('C')
-myAudio.startPlaying('Ds')
-time.sleep(1)
-myAudio.stopPlaying('Ds')
+        self.currentlyPlaying.remove(note)
+    def stopAll(self):
+        for note in self.currentlyPlaying:
+            self.sounds[note].stop()
+        self.currentlyPlaying = set()

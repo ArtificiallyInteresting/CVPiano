@@ -3,11 +3,13 @@
 import cv2
 from util import *
 import vision
+import audio
 
 
 def main():
     template = getTemplate()
     vc = startWebcamFeed()
+    myAudio = audio.audio()
     rval, frame = vc.read()
     while rval:
         circles = vision.detectCircles(frame)
@@ -28,6 +30,10 @@ def main():
         for circle in circlesWithTemplates:
             notes.append(vision.getNote(frame, (circle[0], circle[1]), circle[2]))
         print("I see these notes in this frame: " + str(notes))
+
+        myAudio.stopAll()
+        for note in notes:
+            myAudio.startPlaying(note)
         showFrame(frame)
         rval, frame = vc.read()
         key = cv2.waitKey(20)
