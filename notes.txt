@@ -1,0 +1,3 @@
+150px outer edge to center
+135 inner edge to center
+17px radius of marker
