@@ -1,3 +1,7 @@
 150px outer edge to center
 135 inner edge to center
 17px radius of marker
+
+I should experiment with having it cutoff right when it stops seeing the object, vs when the sound would finish normally
+
+Bs are poorly recognized, the system thinks that they are Fs

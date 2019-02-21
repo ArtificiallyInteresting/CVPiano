@@ -1,7 +1,11 @@
 import cv2
+import os
+import numpy as np
 
 def load(filename):
-    return cv2.imread('inputImages/' + filename + '.png')
+    image = cv2.imread(os.getcwd() + '/inputImages/' + filename + '.jpg', cv2.IMREAD_UNCHANGED)
+    # showImage(image)
+    return image
 
 def showImage(img_in, img_name='image'):
     cv2.imshow(img_name, img_in)
@@ -26,4 +30,17 @@ def endWebcamFeed(name='preview'):
     cv2.destroyWindow(name)
 
 def getTemplate():
-    load("centerMarking")
+    return load("centerMarkingSquare")
+
+def getColor(name):
+    if name == 'red':
+        return (0,0,255)
+    if name == 'green':
+        return (0,255,0)
+    if name == 'blue':
+        return (255,0,0)
+    if name == 'black':
+        return (255,255,255)
+
+def getLetters():
+    return ["A","B","C","D","E","F","G"]
