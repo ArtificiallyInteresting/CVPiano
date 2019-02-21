@@ -21,6 +21,7 @@ class audio:
             sound.set_volume(1)
             self.sounds[key] = sound
     def startPlaying(self, note):
+        print("Playing " + note)
         if note in self.currentlyPlaying:
             return
         self.currentlyPlaying.add(note)

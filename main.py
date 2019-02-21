@@ -15,9 +15,11 @@ def main():
         circles = vision.detectCircles(frame)
         circlesWithTemplates = []
         circlesWithoutTemplates = []
+        cv2.line(frame, (0, int(.25*frame.shape[0])), (frame.shape[1]-1,int(.25*frame.shape[0])), (255,0,0))
+        cv2.line(frame, (0, int(.75*frame.shape[0])), (frame.shape[1]-1,int(.75*frame.shape[0])), (255,0,0))
 
         for circle in circles:
-            if vision.templateInCircle(frame, template, (circle[0], circle[1]), circle[2]):#todo double check these circle params
+            if vision.templateInCircle(frame, template, (circle[0], circle[1]), circle[2]):
                 circlesWithTemplates.append(circle)
             else:
                 circlesWithoutTemplates.append(circle)
@@ -28,8 +30,18 @@ def main():
 
         notes = []
         for circle in circlesWithTemplates:
-            notes.append(vision.getNote(frame, (circle[0], circle[1]), circle[2]))
-        print("I see these notes in this frame: " + str(notes))
+            note = vision.getNote(frame, (circle[0], circle[1]), circle[2])
+            if note is None:
+                continue
+            #todo These circles are x,y but the frame is row,col! Fuck!
+            print(circle)
+            if (circle[1] < .25*frame.shape[0]):
+                note = makeSharp(note)
+            elif (circle[1] > .75*frame.shape[0]):
+                note = makeFlat(note)
+            notes.append(note)
+        if (len(notes) >= 1):
+            print("I see these notes in this frame: " + str(notes))
 
         myAudio.stopAll()
         for note in notes:

@@ -2,6 +2,25 @@ import cv2
 import os
 import numpy as np
 
+sharps = {
+    "A": "As",
+    "As": "B",
+    "B": "C",
+    "C": "Cs",
+    "Cs": "D",
+    "D": "Ds",
+    "Ds": "E",
+    "E": "F",
+    "F": "Fs",
+    "Fs": "G",
+    "G": "Gs",
+    "Gs": "A"
+}
+
+flats = {v: k for k, v in sharps.items()}
+
+
+
 def load(filename):
     image = cv2.imread(os.getcwd() + '/inputImages/' + filename + '.jpg', cv2.IMREAD_UNCHANGED)
     # showImage(image)
@@ -44,3 +63,9 @@ def getColor(name):
 
 def getLetters():
     return ["A","B","C","D","E","F","G"]
+
+def makeSharp(note):
+    return sharps[note]
+
+def makeFlat(note):
+    return flats[note]
