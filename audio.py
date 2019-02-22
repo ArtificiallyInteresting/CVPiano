@@ -20,6 +20,10 @@ class audio:
             sound = pygame.mixer.Sound(folder + filename + '.wav')
             sound.set_volume(1)
             self.sounds[key] = sound
+
+    def setVolume(self, note, volume):
+        self.sounds[note].set_volume(volume)
+
     def startPlaying(self, note):
         print("Playing " + note)
         if note in self.currentlyPlaying:
