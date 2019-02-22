@@ -30,7 +30,7 @@ def main():
 
         notes = []
         for circle in circlesWithTemplates:
-            note = vision.getNote(frame, (circle[0], circle[1]), circle[2])
+            note = vision.getNote(frame, (circle[0], circle[1]), circle[2], "boldFont")
             if note is None:
                 continue
             #todo These circles are x,y but the frame is row,col! Fuck!

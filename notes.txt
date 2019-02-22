@@ -1,7 +1,7 @@
-150px outer edge to center
-135 inner edge to center
-17px radius of marker
-
 I should experiment with having it cutoff right when it stops seeing the object, vs when the sound would finish normally
 
 Bs are poorly recognized, the system thinks that they are Fs
+Add some scaling on letter/texture mapping. Just 10% expanded and 10% reduced should be fine
+Better music tones, the repeating piano is meh.
+
+I like the idea of having an inconsistent font. If every letter is a different font, they'll be easier to distinguish

@@ -20,9 +20,13 @@ sharps = {
 flats = {v: k for k, v in sharps.items()}
 
 
-
-def load(filename):
-    image = cv2.imread(os.getcwd() + '/inputImages/' + filename + '.jpg', cv2.IMREAD_UNCHANGED)
+#todo am I loading these every time? That needs to get fixed.
+def load(filename, subFolder=None):
+    if subFolder is not None:
+        path = os.getcwd() + '/inputImages/' + subFolder + '/' + filename + '.jpg'
+    else:
+        path = os.getcwd() + '/inputImages/' + filename + '.jpg'
+    image = cv2.imread(path, cv2.IMREAD_UNCHANGED)
     # showImage(image)
     return image
 
@@ -62,7 +66,8 @@ def getColor(name):
         return (255,255,255)
 
 def getLetters():
-    return ["A","B","C","D","E","F","G"]
+    #there's no E because we don't detect that. Use F or D# instead
+    return ["A","B","C","D","F","G"]
 
 def makeSharp(note):
     return sharps[note]

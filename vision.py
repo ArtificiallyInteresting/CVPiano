@@ -13,7 +13,7 @@ def detectCircles(image):
 
 
     #image, method, dp, minDist, circles=None, param1=None, param2=None, minRadius=None, maxRadius=None
-    circles = cv2.HoughCircles(image, cv2.HOUGH_GRADIENT, 1, 20, param1 = 300, param2 = 55, minRadius = 15, maxRadius = 300)
+    circles = cv2.HoughCircles(image, cv2.HOUGH_GRADIENT, 1, 50, param1 = 300, param2 = 45, minRadius = 15, maxRadius = 300)
     if (circles is None or len(circles) == 0):
         return []
     else:
@@ -33,23 +33,32 @@ def drawCircles(image, circles, color=(255,255,255)):
 
 
 #todo Quite a bit of overlap between this and template matching. We should make it more generic.
-def getNote(image, location, circleRadius):
-    letterRadius = circleRadius * (6.0/37)
+def getNote(image, location, circleRadius, font="boldFont"):
+    fontRadius = 1
+    if font == "boldFont":
+        fontRadius = 17.0
+    if font == "curlyFont":
+        fontRadius = 13.0
+    if font == "originalFont":
+        fontRadius = 5.5
+    letterRadius = circleRadius * (fontRadius/37)
     maxScore = -1
     maxLetter = "Z"
     searchSpace = image[int(location[1] - circleRadius):int(location[1]),
-                  int(location[0] - .5 * circleRadius):int(location[0] + .5 * circleRadius)]
-
+                  int(location[0] - .8 * circleRadius):int(location[0] + .8 * circleRadius)]
+    # showImage(searchSpace)
     for letter in getLetters():
-        letterImage = load(letter)
-        letterImage = cv2.resize(letterImage, (int(letterRadius*2), int(letterRadius*2)))
-
+        letterImage = load(letter, font)
+        newShape = int(letterRadius*2), int(letterRadius*2 * (letterImage.shape[0]/letterImage.shape[1]))
+        letterImage = cv2.resize(letterImage, newShape)
+        # showImage(letterImage)
         try:
             match = cv2.matchTemplate(searchSpace, letterImage, cv2.TM_CCOEFF_NORMED)
         except:  # If it failed, then we were probably just out of bounds or whatever
             # todo better error checking.
             return None
         score = np.max(match)
+        # print("Letter " + letter + " scored " + str(score))
         if score > maxScore:
             if letter == 'C':
                 letter = 'Cs'
@@ -74,5 +83,5 @@ def templateInCircle(image, template, location, circleRadius):
     except: #If it failed, then we were probably just out of bounds or whatever
         #todo better error checking.
         return False
-    loc = np.where(match >= .4) #todo This should be more automatic.
+    loc = np.where(match >= .7) #todo This should be more automatic.
     return np.any(loc)
