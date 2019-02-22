@@ -13,7 +13,7 @@ def detectCircles(image):
 
 
     #image, method, dp, minDist, circles=None, param1=None, param2=None, minRadius=None, maxRadius=None
-    circles = cv2.HoughCircles(image, cv2.HOUGH_GRADIENT, 1, 50, param1 = 300, param2 = 45, minRadius = 15, maxRadius = 300)
+    circles = cv2.HoughCircles(image, cv2.HOUGH_GRADIENT, 1, 50, param1 = 300, param2 = 65, minRadius = 25, maxRadius = 80)
     if (circles is None or len(circles) == 0):
         return []
     else:
