@@ -10,6 +10,12 @@ from danceMode import *
 def main(trackName = None):
     template = getTemplate()
     vc = startWebcamFeed()
+    key = -1
+    while (key == -1):
+        key = cv2.waitKey(20)
+        print(key)
+        rval, frame = vc.read()
+        showFrame(frame)
     myAudio = audio.audio("bensound-jazzyfrenchy")
     if trackName is not None:
         dance = danceMode(trackName)
