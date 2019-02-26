@@ -38,12 +38,13 @@ def main(trackName = None):
             if note is None:
                 continue
             #todo These circles are x,y but the frame is row,col! Fuck!
-            print(circle)
+            # print(circle)
             if (circle[1] < .25*frame.shape[0]):
                 note = makeSharp(note)
             elif (circle[1] > .75*frame.shape[0]):
                 note = makeFlat(note)
             notes.append(note)
+            myAudio.setVolume(note, (circle[2] - 25)/(80-25))
         if (len(notes) >= 1):
             print("I see these notes in this frame: " + str(notes))
 
