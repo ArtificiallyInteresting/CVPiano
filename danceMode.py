@@ -9,7 +9,7 @@ import time
 class danceMode:
     def __init__(self, trackname):
         self.startTime = time.time()
-        self.bpm = 60 #todo this should come from the track file.
+        self.bpm = 113 #todo this should come from the track file.
         self.secondsPerBeat = (60.0/self.bpm)
         self.beatsDone = 0
         self.notes = []

@@ -10,7 +10,7 @@ from danceMode import *
 def main(trackName = None):
     template = getTemplate()
     vc = startWebcamFeed()
-    myAudio = audio.audio()
+    myAudio = audio.audio("bensound-jazzyfrenchy")
     if trackName is not None:
         dance = danceMode(trackName)
 
@@ -64,4 +64,5 @@ def main(trackName = None):
 
 if __name__ == '__main__':
     # main()
-    main("track1")
+    main("jazz")
+    # main("track1")
