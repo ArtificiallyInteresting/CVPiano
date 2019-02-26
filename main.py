@@ -33,6 +33,7 @@ def main(trackName = None):
             vision.drawCircles(frame, circlesWithoutTemplates, getColor('red'))
 
         notes = []
+        notesDictionary = {}
         for circle in circlesWithTemplates:
             note = vision.getNote(frame, (circle[0], circle[1]), circle[2], "boldFont")
             if note is None:
@@ -44,6 +45,7 @@ def main(trackName = None):
             elif (circle[1] > .75*frame.shape[0]):
                 note = makeFlat(note)
             notes.append(note)
+            notesDictionary[note] = (circle[0], circle[1])
             myAudio.setVolume(note, (circle[2] - 25)/(80-25))
         if (len(notes) >= 1):
             print("I see these notes in this frame: " + str(notes))
@@ -52,7 +54,7 @@ def main(trackName = None):
         for note in notes:
             myAudio.startPlaying(note)
         if trackName is not None:
-            dance.onFrame(frame, notes)
+            dance.onFrame(frame, notesDictionary)
         showFrame(frame)
         rval, frame = vc.read()
         key = cv2.waitKey(20)
@@ -61,4 +63,5 @@ def main(trackName = None):
     endWebcamFeed()
 
 if __name__ == '__main__':
+    # main()
     main("track1")

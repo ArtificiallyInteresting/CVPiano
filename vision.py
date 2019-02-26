@@ -85,3 +85,9 @@ def templateInCircle(image, template, location, circleRadius):
         return False
     loc = np.where(match >= .7) #todo This should be more automatic.
     return np.any(loc)
+
+def drawLetter(frame, x, y, letter, textColor, secondCircleRadius=40):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    cv2.circle(frame, (x, y), 40, textColor, 1)
+    cv2.circle(frame, (x, y), secondCircleRadius, textColor, 1)
+    cv2.putText(frame, letter, (x - 15, y + 15), font, 1.5, textColor, 2, cv2.LINE_AA)
