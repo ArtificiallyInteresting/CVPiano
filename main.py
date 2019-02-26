@@ -4,12 +4,16 @@ import cv2
 from util import *
 import vision
 import audio
+from danceMode import *
 
 
-def main():
+def main(trackName = None):
     template = getTemplate()
     vc = startWebcamFeed()
     myAudio = audio.audio()
+    if trackName is not None:
+        dance = danceMode(trackName)
+
     rval, frame = vc.read()
     while rval:
         circles = vision.detectCircles(frame)
@@ -46,6 +50,8 @@ def main():
         myAudio.stopAll()
         for note in notes:
             myAudio.startPlaying(note)
+        if trackName is not None:
+            dance.onFrame(frame, notes)
         showFrame(frame)
         rval, frame = vc.read()
         key = cv2.waitKey(20)
@@ -54,4 +60,4 @@ def main():
     endWebcamFeed()
 
 if __name__ == '__main__':
-    main()
+    main("track1")

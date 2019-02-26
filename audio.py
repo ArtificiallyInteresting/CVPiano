@@ -18,7 +18,7 @@ class audio:
             if len(key) == 2:
                 filename += 's'
             sound = pygame.mixer.Sound(folder + filename + '.wav')
-            sound.set_volume(1)
+            sound.set_volume(.3)
             self.sounds[key] = sound
     def startPlaying(self, note):
         print("Playing " + note)
